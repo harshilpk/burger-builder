@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import * as authActions from "../../store/actions/index";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {Redirect} from 'react-router-dom';
+import {checkValidity} from '../../shared/validation';
 
 class Auth extends Component {
   state = {
@@ -42,34 +43,13 @@ class Auth extends Component {
     isSignup: true
   };
 
-  checkValidity(value, rules) {
-    let isValid = true;
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-
-    if (rules.none) {
-      isValid = true;
-    }
-
-    return isValid;
-  }
-
   inputChangedHandler = (event, controlName) => {
     const updatedControls = {
       ...this.state.controls,
       [controlName]: {
         ...this.state.controls[controlName],
         value: event.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           event.target.value,
           this.state.controls[controlName].validation
         ),
