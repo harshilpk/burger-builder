@@ -2,6 +2,7 @@
     position: fixed;
     width: 280px;
     max-width: 70%;
+    display: block;
     height: 100%;
     left: 0;
     top: 0;
